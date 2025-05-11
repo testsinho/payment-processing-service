@@ -1,0 +1,44 @@
+openapi: 3.0.4
+info:
+  title: Payment Processing Service API
+  version: 1.0.0
+  description: Servicio de procesamiento de pagos y orquestación del flujo de pago.
+servers:
+  - url: http://localhost:3002
+paths:
+  /process:
+    post:
+      summary: Procesa un pago completo.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                cardData:
+                  type: object
+                amount:
+                  type: number
+                currency:
+                  type: string
+      responses:
+        '200':
+          description: Resultado del procesamiento del pago.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  transactionId:
+                    type: integer
+                  status:
+                    type: string
+        '500':
+          description: Error interno o fallo en el pago.
+  /health:
+    get:
+      summary: Verifica el estado del servicio.
+      responses:
+        '200':
+          description: Servicio operativo.
